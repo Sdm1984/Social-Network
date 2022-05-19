@@ -1,0 +1,19 @@
+{
+  "name": "social-network",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+     "start": "nodemon index.js "
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sdm1984/Social-Network.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Sdm1984/Social-Network/issues"
+  },
+  "homepage": "https://github.com/Sdm1984/Social-Network#readme"
+}
