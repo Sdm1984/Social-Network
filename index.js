@@ -1,12 +1,17 @@
-const express = require("express");
+const express = require('express');
+const dbConn = require('./config/connection');
+const routes = require('./routes')
+
+const PORT = process.env.PORT || 3001;
 const app = express();
-const mongoose = require("mongoose");
-const helmet = require("helmet");
-const dotenv = require("dotenv");
 
-dotenv.config();
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(routes);
 
-
-app.listen(8800,()=>{
-    console.log("Backend server test")
-})
+// once() opens the connection only once(the first time only)
+dbConn.once('open', () => {
+    app.listen(PORT, () => {
+        console.log(`API server running on port ${PORT}!`);
+    });
+});
