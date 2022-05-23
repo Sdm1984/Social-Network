@@ -24,8 +24,10 @@ const userSchema = new Schema({
     }],
 },
     {
+
         toJSON: {
-            virtuals: true, //When the document is converted to JSON string this property ensure that the virtuals are included.
+            getters: true,
+            virtuals: true
         },
         id: false, //Setting this property to false ensures that mongoose does not create unwanted id's for the subdocuments
     }

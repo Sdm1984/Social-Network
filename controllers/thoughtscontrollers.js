@@ -1,10 +1,10 @@
 const { ObjectId } = require('mongoose').Types;
-const { thoughts, user } = require('../models');
+const { thought, user } = require('../models');
 module.exports = {
     // method to get all the thoughts
     getAllThoughts(req, res) {
         // console.log('get all thoughts')
-        Thought.find({})
+        thought.find({})
             .then((thoughts) => {
                 // console.log(thoughts);
                 res.json(thoughts);
@@ -16,7 +16,7 @@ module.exports = {
     },
    
     getThoughtById(req, res) {
-        Thought.findById({
+        thought.findById({
             _id: req.params.id
         }).then((thought) => {
             // console.log(thought);
@@ -33,7 +33,7 @@ module.exports = {
   
     addNewThought(req, res) {
         let thoughtId;
-        Thought.create(req.body)
+        thought.create(req.body)
             .then((thought) => {
                 thoughtId = thought._id;
                 // console.log(thoughtId);
@@ -72,7 +72,7 @@ module.exports = {
     },
    
     deleteThought(req, res) {
-        Thought.deleteOne({ _id: req.params.id })
+        thought.deleteOne({ _id: req.params.id })
             .then((thought) => {
                 if (!thought) {
                     res.status(404).json({ message: 'Thought not found!' });
@@ -83,11 +83,11 @@ module.exports = {
     },
    
     addNewReaction(req, res) {
-        Thought.findOneAndUpdate(
+        thought.findOneAndUpdate(
             {_id: req.params.thoughtId},
             {$addToSet: { reactions: req.body}},
             {runValidators: true, new: true}
-            { _id: req.params.thoughtId },
+            ,{ _id: req.params.thoughtId },
             { $addToSet: { reactions: req.body } },
             { runValidators: true, new: true }
         ).then((thought) => {
@@ -101,8 +101,8 @@ module.exports = {
 
   
     deleteReaction(req, res){
-    deleteReaction(req, res) {
-        Thought.findOneAndUpdate(
+    deleteReaction(req, res) ;{
+        thought.findOneAndUpdate(
             { _id: req.params.thoughtId },
             { $pull: { reactions: { reactionId : req.params.rId } } },
             { $pull: { reactions: { reactionId: req.params.rId } } },
@@ -115,4 +115,4 @@ module.exports = {
             }
         }).catch((err) => res.status(500).json(err));
     }
-};
+}};

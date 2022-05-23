@@ -1,7 +1,12 @@
-const { Schema, Model } = require('mongoose');
+const { Schema, model, Types } = require('mongoose');
+const reactionSchema = require('./reactions')
 
 // Created a thoughtSchema which will be used to create the User model
 const thoughtSchema = new Schema({
+    thoughtId:{
+        type: Schema.Types.ObjectId,
+        default:()=> new Types.ObjectId(),
+    },
     thoughtText: {
         type: String,
         required: true,
@@ -24,6 +29,8 @@ const thoughtSchema = new Schema({
             getters: true,
             virtuals: true
         },
+
+        id:false,
     }
 );
 
@@ -34,9 +41,9 @@ function formatDate(createdAt) {
 // Virtual to get the count of the user's friends(array length)
 thoughtSchema.virtual('reactionCount')
 .get(function () {
-    return `${this.reactions.length}`;
+    return this.reactions.length;
 });
 
-const Thought = Model('thoughts', thoughtSchema);
+const Thought = model('thoughts', thoughtSchema);
 
-module.exports = thoughts; 
+module.exports = Thought; 
